@@ -1,0 +1,7 @@
+mail generation
+    1) rejected -> description, subject
+    2) accepted -> description 
+    3) completed -> description
+
+func(status, from{object}, to{object}, attachement)
+
