@@ -1,12 +1,10 @@
 const express = require('express');
-const server = exp();
-
+const server = express();
 
 server.use(express.json())
 server.use(express.urlencoded({extended:true}))
 
-
-
-server.listen(5000,()=>{
-    console.log('Server started at http://localhost:5000');
+const PORT = process.env.PORT || 6979
+server.listen(PORT,()=>{
+    console.log('Server started at http://localhost:'+PORT);
 })
