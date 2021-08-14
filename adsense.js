@@ -22,6 +22,6 @@ return gapi.client.adsense.accounts.payments.list({
             function(err) { console.error("Execute error", err); });
 }
 gapi.load("client:auth2", function() {
-gapi.auth2.init({client_id: "YOUR_CLIENT_ID"});
+gapi.auth2.init({client_id: "805748317470-o684skg1ud5jclpnq78l43bke1bu1qrk.apps.googleusercontent.com"});
 });
 
