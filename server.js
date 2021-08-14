@@ -16,8 +16,12 @@ server.use(session({
 }));
 
 server.set("view engine","hbs")
+server.use(express.static('public'))
+// server.use(express.static('public/creator'))
 
 server.use('/root',root)
+server.use('/creator',creator)
+server.use('/business', promotor)
 
 const PORT = process.env.PORT || 6979
 server.listen(PORT,()=>{

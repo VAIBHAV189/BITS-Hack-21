@@ -25,9 +25,9 @@ route.post('/login/employee',passport.authenticate('local-user-login',{
         failureRedirect : '/root/login'
     })
     ,function(req,res){
-        if(req.user.jobTitle === 'Admin') return res.redirect('/admin')
-        else return res.redirect('/employee')
-});
+        return res.redirect('/')
+    }
+);
 
 route.get('/signUp',(req,res)=>{
     res.render("signup")
