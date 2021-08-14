@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt')
 const passport = require('passport')
 const strategy = require('passport-local').Strategy
 const account=require('./schema/accountDetails').account
@@ -21,13 +22,16 @@ passport.use('local-user-login',new strategy({
                 console.log('No such user found in database')
                 return done(null,false,{message : 'Incorrect UserName'})
             }
-            if(user.password != password){
-                console.log("Entered Password : " + password)
-                console.log("User Password in Database : " + user.password)
-                console.log('MisMatch!\nTry Again!!')
-                return done(null,false,{message : 'Incorrect Password'})
-            }
-            return done(null,user)
+            bcrypt.compare(password, user.password, function(err, result) {
+                if(result==true){
+                    return done(null,user)
+                }else{
+                    console.log("Entered Password : " + password)
+                    console.log("User Password in Database : " + user.password)
+                    console.log('MisMatch!\nTry Again!!')
+                    return done(null,false,{message : 'Incorrect Password'})
+                }
+            })
         })
         .catch(done)
     }
