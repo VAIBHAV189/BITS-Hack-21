@@ -1,21 +1,28 @@
 const mongoose = require('mongoose')
 
-const typeMap = {
-    "creator": 1,
-    "customer": 0
-}
+
 const accountDetails = new mongoose.Schema({
     username: {
         type: String,
         required: true,
         unique: true
     },
+    name:{
+        type:String,
+        required: true,
+        unique:false
+    },
+    email:{
+        type:String,
+        required: true,
+        unique:false
+    },
     password: {
         type: String,
         required: true
     },
     type: {
-        type: Number,
+        type: String,
         required: true
     }
 })
@@ -28,6 +35,5 @@ accountDetails.path('password').validate(function (value) {
 const account = mongoose.model('accountDetails', accountDetails)
 
 module.exports = {
-    typeMap,
     account
 }

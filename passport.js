@@ -1,8 +1,7 @@
 const passport = require('passport')
 const strategy = require('passport-local').Strategy
-const db=require('./db')
-const customers = db.accountDetails
-
+const account=require('./schema/accountDetails')
+console.log(account)
 
 function SessionConstructor(userId, userGroup) {
     this.userId = userId;
@@ -15,15 +14,16 @@ passport.use('local-user-login',new strategy({
         passwordField: 'password'
     },
     function(username,password,done){
-        customers.find({
-        })
+        account.find(
+            {username:username}
+        )
         .then((user)=>{
             if(!user){
                 console.log('No such user found in database')
                 return done(null,false,{message : 'Incorrect UserName'})
             }
             if(user.password != password){
-                console.log("Entered Pa-ssword : " + password)
+                console.log("Entered Password : " + password)
                 console.log("User Password in Database : " + user.password)
                 console.log('MisMatch!\nTry Again!!')
                 return done(null,false,{message : 'Incorrect Password'})
@@ -40,11 +40,9 @@ passport.use('local-employee-login',new strategy({
         passwordField: 'password'
     },
     function(username,password,done) {
-        employeeTable.findOne({
-            where : {
-                id : username
-            }
-        })
+        account.find(
+            {username : username}
+        )
         .then((user)=>{
             if(!user){
                 console.log('No such employee found in database')
@@ -67,7 +65,7 @@ passport.serializeUser(function(userObject,done){
     let userGroup
     let userPrototype = Object.getPrototypeOf(userObject)
     let sessionConstructor
-    if (userPrototype === customers.prototype) {
+    if (userPrototype === user.prototype) {
         userGroup = "user";
         sessionConstructor = new SessionConstructor(userObject.username, userGroup)
     } 
@@ -80,7 +78,7 @@ passport.serializeUser(function(userObject,done){
 
 passport.deserializeUser(function(sessionConstructor,done){
     if(sessionConstructor.userGroup == 'user') {
-        customers.findOne({
+        user.findOne({
             where : {
                 username: sessionConstructor.userId
             }

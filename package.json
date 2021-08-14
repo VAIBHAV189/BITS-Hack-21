@@ -19,10 +19,13 @@
   "homepage": "https://github.com/VAIBHAV189/BITS-Hack-21#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-session": "^1.17.2",
     "hbs": "^4.1.2",
     "mongoose": "^5.13.7",
     "nodemon": "^2.0.12",
     "passport": "^0.4.1",
-    "passport-session": "^1.0.2"
+    "passport-local": "^1.0.0",
+    "passport-session": "^1.0.2",
+    "session": "^0.1.0"
   }
 }
