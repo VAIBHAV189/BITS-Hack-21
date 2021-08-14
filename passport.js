@@ -1,20 +1,19 @@
 const passport = require('passport')
 const strategy = require('passport-local').Strategy
-const account=require('./schema/accountDetails')
+const account=require('./schema/accountDetails').account
 console.log(account)
 
 function SessionConstructor(userId, userGroup) {
-    this.userId = userId;
-    this.userGroup = userGroup;
+    this.username = userId
+    this.userGroup = userGroup
 }
-
 
 passport.use('local-user-login',new strategy({
         usernameField: 'username',
         passwordField: 'password'
     },
     function(username,password,done){
-        account.find(
+        account.findOne(
             {username:username}
         )
         .then((user)=>{
@@ -34,55 +33,26 @@ passport.use('local-user-login',new strategy({
     }
 ));
 
-
-passport.use('local-employee-login',new strategy({
-        usernameField: 'username',
-        passwordField: 'password'
-    },
-    function(username,password,done) {
-        account.find(
-            {username : username}
-        )
-        .then((user)=>{
-            if(!user){
-                console.log('No such employee found in database')
-                return done(null,false,{message : 'Incorrect UserName'})
-            }
-            if(user.password != password){
-                console.log("Entered Password : " + password)
-                console.log("Employee Password in Database : " + user.password)
-                console.log('MisMatch!\nTry Again!!')
-                return done(null,false,{message : 'Incorrect Password'})
-            }
-            return done(null,user)
-        })
-        .catch(done)
-    } 
-));            
-
-
 passport.serializeUser(function(userObject,done){
     let userGroup
     let userPrototype = Object.getPrototypeOf(userObject)
     let sessionConstructor
-    if (userPrototype === user.prototype) {
-        userGroup = "user";
+    if (userObject.type == "creator") {
+        userGroup = "creator";
         sessionConstructor = new SessionConstructor(userObject.username, userGroup)
     } 
-    else if (userPrototype === employeeTable.prototype) {
-        userGroup = "employee";
-        sessionConstructor = new SessionConstructor(userObject.id, userGroup)
+    else if (userObject.type == "promoter") {
+        userGroup = "promoter";
+        sessionConstructor = new SessionConstructor(userObject.username, userGroup)
     }
     done(null,sessionConstructor)
 });
 
 passport.deserializeUser(function(sessionConstructor,done){
-    if(sessionConstructor.userGroup == 'user') {
-        user.findOne({
-            where : {
-                username: sessionConstructor.userId
-            }
-        })
+    if(sessionConstructor.userGroup == 'creator') {
+        account.findOne(
+            { username: sessionConstructor.username }
+        )
         .then((user)=>{
             if(!user) {
                 return done(new Error('No Such User'));
@@ -94,16 +64,14 @@ passport.deserializeUser(function(sessionConstructor,done){
         })
     }
     else if(sessionConstructor.userGroup == 'employee') {
-        employeeTable.findOne({
-            where : { 
-                id : sessionConstructor.userId
-            }
-        })
+        account.findOne(
+            { username : sessionConstructor.username }
+        )
        .then((user)=>{
            if(!user){
                 return done(new Error('No Such Employee'));
-           }
-          return done(null,user);
+            }
+            return done(null,user);
        })
        .catch((err)=>{
            done(err)
@@ -112,3 +80,33 @@ passport.deserializeUser(function(sessionConstructor,done){
 });
 
 module.exports = passport;
+
+
+
+
+
+
+// passport.use('local-employee-login',new strategy({
+//     usernameField: 'username',
+//     passwordField: 'password'
+// },
+// function(username,password,done) {
+//     account.find(
+//         {username : username}
+//     )
+//     .then((user)=>{
+//         if(!user){
+//             console.log('No such employee found in database')
+//             return done(null,false,{message : 'Incorrect UserName'})
+//         }
+//         if(user.password != password){
+//             console.log("Entered Password : " + password)
+//             console.log("Employee Password in Database : " + user.password)
+//             console.log('MisMatch!\nTry Again!!')
+//             return done(null,false,{message : 'Incorrect Password'})
+//         }
+//         return done(null,user)
+//     })
+//     .catch(done)
+// } 
+// ));          

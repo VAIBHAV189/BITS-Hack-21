@@ -1,5 +1,5 @@
 const route = require('express').Router();
-const user = require('../schema/accountDetails')
+const user = require('../schema/accountDetails').account
 const passport = require('../passport');
 
 // ------------------------------------------Root Authentication Starts------------------------------------------ //
@@ -40,7 +40,7 @@ route.post('/signUp',(req,res)=>{
         email:req.body.email,
         type:req.body.type
     }
-    user.insertOne(obj)
+    user.create(obj)
     .then(()=>{
         res.redirect('/root/login')
     }).catch((err)=>{
