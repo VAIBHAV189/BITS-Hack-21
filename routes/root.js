@@ -20,7 +20,7 @@ route.post('/login/user',passport.authenticate('local-user-login',{
     }
 );
 
-route.post('/login/employee',passport.authenticate('local-employee-login',{
+route.post('/login/employee',passport.authenticate('local-user-login',{
         failureRedirect : '/root/login'
     })
     ,function(req,res){
