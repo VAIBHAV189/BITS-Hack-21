@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt')
 const route = require('express').Router();
 const user = require('../schema/accountDetails').account
 const passport = require('../passport');
@@ -33,18 +34,23 @@ route.get('/signUp',(req,res)=>{
 })
 
 route.post('/signUp',(req,res)=>{
-    let obj={
-        username:req.body.username,
-        password:req.body.password,
-        name:req.body.name,
-        email:req.body.email,
-        type:req.body.type
-    }
-    user.create(obj)
-    .then(()=>{
-        res.redirect('/root/login')
-    }).catch((err)=>{
-        res.send(err)
+    const saltRounds = 10;
+    bcrypt.genSalt(saltRounds, function(err, salt) {
+        bcrypt.hash(req.body.password, salt, function(err, hash) {
+            let obj={
+                username:req.body.username,
+                password:hash,
+                name:req.body.name,
+                email:req.body.email,
+                type:req.body.type
+            }
+            user.create(obj)
+            .then(()=>{
+                res.redirect('/root/login')
+            }).catch((err)=>{
+                res.send(err)
+            })            
+        })
     })
 })
 
