@@ -1,10 +1,11 @@
 const express = require('express');
-const server = exp();
+const server = express();
 
 
 server.use(express.json())
 server.use(express.urlencoded({extended:true}))
 
+server.use(express.static('public'));
 
 
 server.listen(5000,()=>{
