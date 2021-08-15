@@ -18,5 +18,114 @@
         <input type="text" name="status" value="Pending" hidden>
         <button type="submit">Submit</button>
     </form>
+
+    <div class="acceptedReq">
+        <a href="/business/acceptedRequests">Get Accepted Requests</a>
+        <table cellspacing="5" cellpadding="5" class="bg-white">
+            <thead>
+                <th>Request Id</th>
+                <th>Request Meta Data</th>
+                <th>Offered on</th>
+                <th>Creator Username</th>
+                <th>Amount(in Rs)</th>
+                <th>Deadline</th>
+                <th>Payment Mode</th>
+                <th>Payment Id</th>
+                <th>Payment Date</th>
+                <th>Action</th>
+                <th>Submit</th>
+            </thead>
+            {{#each accReqList as |obj|}}
+                <tr>
+                    <td>{{obj.requestId}}</td>
+                    <td>{{obj.requestMetaData}}</td>
+                    <td>{{obj.offeredOn}}</td>
+                    <td>{{obj.creatorUsername}}</td>
+                    <td>{{obj.amount}}</td>
+                    <td>{{obj.deadline}}</td>
+                    <form method="POST" action="/business/makePayment">
+                        <td>
+                            <div class="group select"> 
+                                <select name="paymentMode">
+                                    <option disabled selected value> -- Choose Type -- </option>
+                                    <option value="Paytm">Paytm</option>
+                                    <option value="RTGS">RTGS</option>
+                                    <option value="NEFT">NEFT</option>
+                                    <option value="NetBanking">NetBanking</option>
+                                </select>   
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" name="paymentId">
+                        </td>
+                        <td>
+                            <input type="date" name="timestamp">
+                        </td>
+                        <td>
+                            <div class="group select"> 
+                                <select name="status" id="type">
+                                    <option disabled selected value> -- Choose -- </option>
+                                    <option value="Paid">Make Payment</option>
+                                </select>   
+                            </div>
+                        </td>
+                        <input type="text" name="requestId" value="{{obj.requestId}}" hidden>
+                        <input type="text" name="amount" value="{{obj.amount}}" hidden>
+                        <input type="text" name="creatorUsername" value="{{obj.creatorUsername}}" hidden>
+                        <td><button type="submit">Update</button></td>
+                    </form> 
+                </tr>
+            {{/each}}
+        </table>
+    </div>
+
+    <div class="completedReq">
+        <a href="/business/completedRequests">Get Completed Requests</a>
+        <table cellspacing="5" cellpadding="5" class="bg-white">
+            <thead>
+                <th>Request Id</th>
+                <th>Request Meta Data</th>
+                <th>Offered on</th>
+                <th>Creator Username</th>
+                <th>Amount(in Rs)</th>
+            </thead>
+            {{#each compReqList as |obj|}}
+                <tr>
+                    <td>{{obj.requestId}}</td>
+                    <td>{{obj.requestMetaData}}</td>
+                    <td>{{obj.offeredOn}}</td>
+                    <td>{{obj.creatorUsername}}</td>
+                    <td>{{obj.amount}}</td>
+                </tr>
+            {{/each}}
+        </table>
+    </div>
+
+    <div class="payHistory">
+        <a href="/business/myPayments">Get My Payment History</a>
+        <table cellspacing="5" cellpadding="5" class="bg-white">
+            <thead>
+                <th>Payment ID</th>
+                <th>Request ID</th>
+                <th>Creator Username</th>
+                <th>Payment Type</th>
+                <th>Payment Mode</th>
+                <th>TimeStamp</th>
+                <th>Amount(in Rs)</th>
+            </thead>
+            {{#each paymentsList as |obj|}}
+            <tr>
+                <td>{{obj.paymentId}}</td>
+                <td>{{obj.requestId}}</td>
+                <td>{{obj.creatorUsername}}</td>
+                <td>{{obj.paymentType}}</td>
+                <td>{{obj.paymentMode}}</td>
+                <td>{{obj.timestamp}}</td>
+                <td>{{obj.amount}}</td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+
 </body>
 </html>

@@ -3,7 +3,7 @@ const requests =    require('../schema/requestList.js').reqList
 console.log(requests)
 
 route.get('/',async (req,res)=>{
-
+    console.log("Vagi ke kehne pe printing ", req)
     let pendingReqList
     let paidReqList
     let compReqList
@@ -17,7 +17,6 @@ route.get('/',async (req,res)=>{
         creatorUsername : "vagi",
         status : "Complete"
     })
-
     paidReqList = await requests.find(
     {
         creatorUsername : "vagi",

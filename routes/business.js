@@ -1,13 +1,29 @@
 const route    =    require('express').Router();
 const requests =    require('../schema/requestList.js').reqList
-const payments =    require('../schema/paymentHistory.js').paymentHistory
+const payments =    require('../schema/paymentHistory.js').payHistory
 
-route.get('/',(req,res)=>{
-    res.render('../public/business/index.hbs');
+route.get('/',async (req,res)=>{
+    let accReqList
+    let compReqList
+    let paymentsList
+    accReqList = await requests.find(
+    {
+        promoterUsername: "vv",
+        status : "Accept"
+    })
+    compReqList = await requests.find(
+    {
+        promoterUsername: "vv",
+        status : "Complete"
+    })
+    paymentsList = await payments.find(
+    {
+        promoterUsername: "vv"
+    })
+    res.render('../public/business/index.hbs',{accReqList, compReqList, paymentsList});
 })
 
 route.post('/newRequest',(req,res)=>{
-    console.log("Hello",req.body)
     requests.create(req.body).then(()=>{
         res.send('Success')
     })
@@ -15,8 +31,8 @@ route.post('/newRequest',(req,res)=>{
 
 route.get('/acceptedRequests',(req, res)=>{
     requests.find(
-        {promotorUsername: req.user.username},
-        {status : "Accepted"}
+        {promoterUsername: "vv"},
+        {status : "Accept"}
     ).then((accReqList)=>{
         res.send(accReqList)
     })
@@ -24,8 +40,8 @@ route.get('/acceptedRequests',(req, res)=>{
 
 route.get('/completedRequests',(req, res)=>{
     requests.find(
-        {promotorUsername: req.user.username},
-        {status : "Completed"}
+        {promoterUsername: "vv",
+        status : "Completed"}
     ).then((compReqList)=>{
         res.send(compReqList)
     })
@@ -33,16 +49,18 @@ route.get('/completedRequests',(req, res)=>{
 
 route.get('/myPayments',(req, res)=>{
     payments.find(
-        {promotorUsername: req.user.username},
+        {promoterUsername: "vv"},
     ).then((paymentsList)=>{
         res.send(paymentsList)
     })
 })
 
 route.post('/makePayment',(req, res)=>{
-    payments.insertOne({
-        promotorUsername: req.body.promotorUsername,
-        creatorUsername: req.user.username,
+    console.log(req.body)
+    payments.create({
+        paymentId: req.body.paymentId,
+        promoterUsername: "vv",
+        creatorUsername: req.body.creatorUsername,
         requestId: req.body.requestId,
         paymentMode: req.body.paymentMode,
         paymentType: "Promotion",
@@ -51,11 +69,12 @@ route.post('/makePayment',(req, res)=>{
     }).then((status)=>{
         requests.updateOne(
             {requestId : req.body.requestId},
-            {$set: {status : "Paid"}}
+            {$set: {status : req.body.status}}
         ).then((status)=>{
             res.send("Success")
         })
     })
+    // res.send('Success')
 })
 
 module.exports = {
