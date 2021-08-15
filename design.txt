@@ -4,4 +4,3 @@ mail generation
     3) completed -> description
 
 func(status, from{object}, to{object}, attachement)
-

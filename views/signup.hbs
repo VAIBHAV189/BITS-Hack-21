@@ -6,14 +6,14 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/login.css">
-    <script src="/scripts/jquery.js"></script>
+    {{!-- <script src="/scripts/jquery.js"></script> --}}
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="login-wrap">
         <div class="login-html">
             {{!-- <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign Up</label> --}}
-            <input id="tab-2" type="radio" name="tab" class="sign-up" checked> <label for="tab-2" class="tab " id="header">Sign Up</label>
+            <h1 id="header">SIGNUP</h1>
             {{!-- <div class="hr"></div> --}}
             <div class="login-form">
                 <form action="/root/signup" method="POST">
@@ -35,8 +35,9 @@
                             <label for="mail" class="label">Email Address</label>
                             <input id="mail" type="text" name="email" class="input" required>
                         </div>
-                        <div class="group">
-                            <select name="type" id="type">
+                        <div class=" group select">
+                            <select name="type" id="type" >
+                                <option disabled selected value> -- Choose Type Of User -- </option>
                                 <option value="creator">Creator</option>
                                 <option value="promoter">Promoter</option>
                             </select>

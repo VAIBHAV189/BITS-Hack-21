@@ -59,7 +59,7 @@ passport.deserializeUser(function(sessionConstructor,done){
         )
         .then((user)=>{
             if(!user) {
-                return done(new Error('No Such User'));
+                return done(new Error('No Such Creator'));
             }
             return done(null,user)
         })
@@ -67,13 +67,13 @@ passport.deserializeUser(function(sessionConstructor,done){
             done(err)
         })
     }
-    else if(sessionConstructor.userGroup == 'employee') {
+    else if(sessionConstructor.userGroup == 'promoter') {
         account.findOne(
             { username : sessionConstructor.username }
         )
        .then((user)=>{
            if(!user){
-                return done(new Error('No Such Employee'));
+                return done(new Error('No Such Promoter'));
             }
             return done(null,user);
        })

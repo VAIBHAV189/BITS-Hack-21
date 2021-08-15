@@ -11,9 +11,90 @@ route.get('/rejectionMail',
     async function(req,res){
         console.log('This is req.user->', req.user)
         if(req.user) {
-            
+            console.log(req.body)
+            rejectedDescriptionHTML = `
+             <h1> Hello This is the rejection mail! </h1>
+            `
+            const mail = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                  user: 'your-email@gmail.com',
+                  pass: 'your-gmail-password'
+                }
+            })
+            const mailOptions = {
+                from: 'youremail@gmail.com',
+                to: 'myfriend@gmail.com',
+                subject: 'Sending Email via Node.js',
+                html: rejectedDescriptionHTML
+            } 
+            transporter.sendMail(mailOptions, function(error, info){
+                if (error) console.log(error);
+                else  console.log('Email sent: ' + info.response);
+            })  
         }
         else res.redirect('/logout')
+        res.status(200).status('Rejection sent Succesfully!!')
+})
+
+route.get('/acceptanceMail',
+    async function(req,res) {
+        console.log('This is req.user->', req.user)
+        if(req.user) {
+            console.log(req.body)
+            acceptDescriptionHTML = `
+             <h1> Hello This is the acceptance mail! </h1>
+            `
+            const mail = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                  user: 'your-email@gmail.com',
+                  pass: 'your-gmail-password'
+                }
+            })
+            const mailOptions = {
+                from: 'youremail@gmail.com',
+                to: 'myfriend@gmail.com',
+                subject: 'Sending Email via Node.js',
+                html: acceptDescriptionHTML
+            } 
+            transporter.sendMail(mailOptions, function(error, info){
+                if (error) console.log(error);
+                else  console.log('Email sent: ' + info.response);
+            })  
+        }
+        else res.redirect('/logout')
+        res.status(200).status('Acceptance sent Succesfully!!')
+})
+
+route.get('/completionMail',
+    async function(req,res){
+        console.log('This is req.user->', req.user)
+        if(req.user) {
+            console.log(req.body)
+            taskCompleteDescriptionHTML = `
+             <h1> Hello This is the rejection mail! </h1>
+            `
+            const mail = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                  user: 'your-email@gmail.com',
+                  pass: 'your-gmail-password'
+                }
+            })
+            const mailOptions = {
+                from: 'youremail@gmail.com',
+                to: 'myfriend@gmail.com',
+                subject: 'Sending Email via Node.js',
+                html: taskCompleteDescriptionHTML
+            } 
+            transporter.sendMail(mailOptions, function(error, info){
+                if (error) console.log(error);
+                else  console.log('Email sent: ' + info.response);
+            })  
+        }
+        else res.redirect('/logout')
+        res.status(200).status('Rejection sent Succesfully!!')
 })
 
 module.exports = {

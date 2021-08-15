@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creator</title>
+    <script src="jQuery.js"></script>
+    <script src="googleApi.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <input type="text" id="accName">
+    <button id="fetchAdSense">Load adSense details</button>
+
+    <p></p>
+
+    <input type="date" id="startDate">
+    <input type="date" id="endDate">
+    <button id="fetchYtAnalytics">Load Youtube Analytics</button>
+
+    <div class="container">
+        <canvas id="myChart">
+
+        </canvas>
+    </div>
+
+    <div class="pendingReq">
+        <a href="/creator/pendingRequests">Get Pending Requests</a>
+        <table cellspacing="5" cellpadding="5" class="bg-white">
+            <thead>
+                <th>Request Id</th>
+                <th>Request Meta Data</th>
+                <th>Offered on</th>
+                <th>Promoter Username</th>
+                <th>Amount(in Rs)</th>
+                <th>Deadline</th>
+                <th>Action</th>
+                <th>Submit</th>
+            </thead>
+            {{#each pendingReqList as |obj|}}
+                <tr>
+                    
+                        <td value="{{obj.requestId}}" name="requestId">{{obj.requestId}}</td>
+                        <td>{{obj.requestMetaData}}</td>
+                        <td>{{obj.offeredOn}}</td>
+                        <td>{{obj.promoterUsername}}</td>
+                        <td>{{obj.amount}}</td>
+                        <td>{{obj.deadline}}</td>
+                        <form method="POST" action="/creator/updRequestStatus">
+                            <td name="status">
+                                
+                                <div class=" group select"> 
+                                    <input type="text" name="requestId" value="{{obj.requestId}}" hidden>
+                                    <select name="status" id="type" >
+                                        <option disabled selected value> -- Choose Type Of User -- </option>
+                                        <option value="Accept">Accept</option>
+                                        <option value="Reject">Reject</option>
+                                    </select>   
+                                    
+                                </div>
+                                
+                            </td>
+                            <td><button type="submit">Update</button></td>
+                        </form> 
+                </tr>
+            {{/each}}
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

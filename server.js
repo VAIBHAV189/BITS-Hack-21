@@ -3,6 +3,8 @@ const server    = express();
 const root      = require('./routes/root').route
 const session   = require('express-session')
 const db        = require('./db')()
+const creator   = require('./routes/creator').route
+const promotor  = require('./routes/business').route
 
 server.use(express.json())
 server.use(express.urlencoded({extended:true}))
@@ -15,8 +17,11 @@ server.use(session({
 
 server.set("view engine","hbs")
 server.use(express.static('public'))
+// server.use(express.static('public/creator'))
 
 server.use('/root',root)
+server.use('/creator',creator)
+server.use('/business', promotor)
 
 const PORT = process.env.PORT || 6979
 server.listen(PORT,()=>{
