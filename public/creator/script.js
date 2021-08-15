@@ -1,7 +1,10 @@
 $(()=>{
-    gapi.load("client:auth2", function() {
-        gapi.auth2.init({client_id: "805748317470-oa1eufend6rrofu32v6ks3qe50486v2g.apps.googleusercontent.com"});
-    });
+    $.getJSON('credentials.json', function(cred){
+        console.log(cred.web.client_id)
+        gapi.load("client:auth2", function() {
+            gapi.auth2.init({client_id:""});
+        });
+    })
 })
 
 function plotHistogram(dates, views, subscribersGained) {
