@@ -16,18 +16,14 @@ route.post('/login/user',passport.authenticate('local-user-login',{
     })
     ,function(req,res){
         console.log("Logging In User: ",req.body.username)
-        // console.log(req.user)
-        return res.redirect('/')
+        if(req.session.passport.user.userGroup=='creator')
+        {
+            return res.redirect('/creator')
+        }
+        return res.redirect('/business')
     }
 );
 
-route.post('/login/employee',passport.authenticate('local-user-login',{
-        failureRedirect : '/root/login'
-    })
-    ,function(req,res){
-        return res.redirect('/')
-    }
-);
 
 route.get('/signUp',(req,res)=>{
     res.render("signup")

@@ -3,16 +3,19 @@ const requests =    require('../schema/requestList.js').reqList
 console.log(requests)
 
 route.get('/',async (req,res)=>{
-    console.log("Vagi ke kehne pe printing ", req)
+    // if(req.session.passport.user &&  req.session.passport.user.userGroup!="creator")
+    // {
+    //     return res.redirect('/root/login')
+    // }
     let pendingReqList
     let paidReqList
     let compReqList
-    pendingReqList  =   await requests.find(
+    pendingReqList  = await requests.find(
     {
         creatorUsername: "vagi",
         status: "Pending"
     })
-    compReqList =   await requests.find(
+    compReqList = await requests.find(
     {
         creatorUsername : "vagi",
         status : "Complete"
@@ -22,21 +25,16 @@ route.get('/',async (req,res)=>{
         creatorUsername : "vagi",
         status : "Paid"
     })
-    console.log("Pending wale dekho",pendingReqList)
-    console.log("Comp wale dekho",compReqList)
-    console.log("Paid wale dekho",paidReqList)
     res.render('../public/creator/index.hbs',{pendingReqList,compReqList,paidReqList});
 })
 
 route.get('/pendingRequests', (req, res)=>{
-    // console.log(req.userObject)
     requests.find(
     {
         creatorUsername: "vagi",
         status: "Pending"
     }
     ).then((pendingReqList)=>{
-        // console.log(pendingReqList)
         res.render('../public/creator/index.hbs',{pendingReqList})
     })
 })
