@@ -23,6 +23,10 @@ const requestList = new mongoose.Schema({
         type: Date,
         required: true
     },
+    promotorUsername: {
+        type: String,
+        required: true
+    },
     deadline: {
         type: Date,
         required: true

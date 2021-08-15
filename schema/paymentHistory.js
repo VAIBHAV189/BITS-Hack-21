@@ -7,12 +7,17 @@ const paymentTypeMap = {
 }
 
 const paymentHistory = new mongoose.Schema({
-    customerUsername: {
+    promotorUsername: {
         type: String,
         required: true,
         unique: true
     },
-    recipientUsername: {
+    creatorUsername: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    requestId: {
         type: String,
         required: true,
         unique: true
@@ -27,7 +32,7 @@ const paymentHistory = new mongoose.Schema({
         required: true,
         unique: true
     },
-    mode: {
+    paymentMode: {
         type: String,
         required: true
     },
