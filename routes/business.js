@@ -1,9 +1,16 @@
 const route    =    require('express').Router();
-const requests =    require('../schema/requestList.js').requestList
+const requests =    require('../schema/requestList.js').reqList
 const payments =    require('../schema/paymentHistory.js').paymentHistory
 
+route.get('/',(req,res)=>{
+    res.render('../public/business/index.hbs');
+})
+
 route.post('/newRequest',(req,res)=>{
-    requests.insertOne(req.body)
+    console.log("Hello",req.body)
+    requests.create(req.body).then(()=>{
+        res.send('Success')
+    })
 })
 
 route.get('/acceptedRequests',(req, res)=>{
