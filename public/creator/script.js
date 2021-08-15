@@ -3,12 +3,14 @@ let pend = $('#pend')
 let paid = $('#paid')
 let comp = $('#comp')
 let mypay = $('#mypay')
+let myMoney = $('#fetchAdSense')
 
 let adsense = $('.adsense')
 let pending = $('.pendingReq')
 let paymentDone = $('.paidReq')
 let completed = $('.completedReq')
 let payHistory = $('.payHistory')
+let payMoney = $('#money')
 
 hideAll();
 adsense.show()
@@ -17,31 +19,37 @@ $(()=>{
 
     $.get('/root/profile', (data)=>{
         // console.log('Hello');
-        if(data.username == undefined){
+        if(data == undefined){
             alert('Please Login')
             document.location.href = '/root/login'
         }
-        else if(data.userGroup != 'creator'){
-            alert('Not Authorized! Please login with a promoter account')
+        else if(data.user == undefined){
+            alert('Please Login')
+            document.location.href = '/root/login'
+        }
+        else if(data.user.username == undefined){
+            alert('Please Login')
+            document.location.href = '/root/login'
+        }
+        else if(data.user.userGroup != 'creator'){
+            alert('Not Authorized! Please login with a creator account')
             document.location.href = '/root/login'
         }
         else{
-            console.log("Welcome" + data.username);
+            console.log("Welcome" + data.user.username);
             $('#login123')
-                .text(data.username)
+                .text(data.user.username)
                 .attr("href","#")
             $("#logout").show();
         }
     });
 
-    $("#logout").on('click',function(){
-        $.get("/root/logout",(data)=>{
-            if(data=='Success'){
-                alert('Logged out!');
-                document.location.href = '/root/login';
-            }
-        });
-    });
+    // $("#logout").on('click',function(){
+    //     $.get("/root/logout",(data)=>{
+    //         if(data=='Success'){
+    //         }
+    //     });
+    // });
 
     $.getJSON('credentials.json', function(cred){
         console.log(cred.web.client_id)
@@ -72,6 +80,11 @@ $(()=>{
         hideAll();
         payHistory.show();
     })
+    myMoney.on('click',()=>{
+        hideAll();
+        adsense.show();
+        payMoney.show();
+    })
 })
 
 function hideAll()
@@ -81,6 +94,7 @@ function hideAll()
     paymentDone.hide();
     completed.hide();
     payHistory.hide();
+    payMoney.hide();
 }
 
 function plotHistogram(dates, views, subscribersGained) {
@@ -91,8 +105,8 @@ function plotHistogram(dates, views, subscribersGained) {
         data: {
             labels: dates,
             datasets: [
-                {label: 'Views',data: views},
-                {label: 'Subscribers',data: subscribersGained}
+                {label: 'Views', data: views, backgroundColor: 'purple'},
+                {label: 'Subscribers', data: subscribersGained, backgroundColor: 'red'}
             ]
         },
         options: {}
@@ -100,14 +114,14 @@ function plotHistogram(dates, views, subscribersGained) {
 }
 
 function authYtAnalytics() {
-    return gapi.auth2.getAuthInstance()
+    return gapi.auth2.init({client_id:"805748317470-oa1eufend6rrofu32v6ks3qe50486v2g.apps.googleusercontent.com"})
         .signIn({scope: "https://www.googleapis.com/auth/yt-analytics.readonly"})
         .then(function() { console.log("Sign-in successful"); },
             function(err) { console.error("Error signing in", err); });
 }
 
 function authAdSense() {
-    return gapi.auth2.getAuthInstance()
+    return gapi.auth2.init({client_id:"805748317470-oa1eufend6rrofu32v6ks3qe50486v2g.apps.googleusercontent.com"})
         .signIn({scope: "https://www.googleapis.com/auth/adsense https://www.googleapis.com/auth/adsense.readonly"})
         .then(function() { console.log("Sign-in successful"); },
             function(err) { console.error("Error signing in", err); });
@@ -166,9 +180,9 @@ function executeAdSense(accName) {
         // Handle the results here (response.result has the parsed body).
         // console.log("Response", response.result);
         let res = response.result;
-        res["payments"].forEach(element => {
-            console.log(element);
-        });
+        let arr = res["payments"];
+        $('#unPaid').val(arr[0].amount)
+        $('#lastPayment').val(arr[1].amount)
     },
     function(err) { console.error("Execute error", err); });
 }

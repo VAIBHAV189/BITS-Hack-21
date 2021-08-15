@@ -71,7 +71,6 @@
             <input type="text" class="form-control " id="accName">
             <button id="fetchAdSense" class="text-white btn btn-primary">Load adSense details</button>
         </div>
-        
 
         <br>
         <div class="input-group mb-3">
@@ -80,11 +79,20 @@
             <button id="fetchYtAnalytics" class="btn btn-success">Load Youtube Analytics</button>
         </div>
         
-
         <div class="container">
             <canvas id="myChart">
 
             </canvas>
+        </div>
+    </div>
+
+    <div class="card" id="money" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">AdSense Details</h5>
+            <label for="lastPayment">Last Payment</label>
+            <input type="text" id="lastPayment" disabled>
+            <label for="unPaid">Unpaid Amount</label>
+            <input type="text" id="unPaid" disabled>
         </div>
     </div>
     
@@ -116,7 +124,7 @@
                                     <input type="text" name="requestId" value="{{obj.requestId}}" hidden>
                                     <select name="status" id="type" >
                                         <option disabled selected value>Choose</option>
-                                        <option value="Accept" >Accept</option>
+                                        <option value="Accept">Accept</option>
                                         <option value="Reject">Reject</option>
                                     </select>   
                                 </div>

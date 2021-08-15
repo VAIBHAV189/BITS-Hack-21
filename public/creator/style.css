@@ -9,6 +9,16 @@ body{
     margin:0 !important;
 }
 
+#myChart{
+    margin-bottom: 50px;
+}
+
+#money{
+    height: 300px;
+    border: 2px solid navy;
+    font-weight: bold;
+    margin-left: 35%;
+}
 
 h1{
     font-family: 'Libre Baskerville', serif;

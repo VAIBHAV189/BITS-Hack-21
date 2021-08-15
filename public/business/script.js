@@ -24,31 +24,35 @@ $(()=>{
 
     $.get('/root/profile', (data)=>{
         // console.log('Hello');
-        if(data.username == undefined){
+        if(data == undefined){
             alert('Please Login')
             document.location.href = '/root/login'
         }
-        else if(data.userGroup != 'promoter'){
+        else if(data.user == undefined){
+            alert('Please Login')
+            document.location.href = '/root/login'
+        }
+        else if(data.user.username == undefined){
+            alert('Please Login')
+            document.location.href = '/root/login'
+        }
+        else if(data.user.userGroup != 'promoter'){
             alert('Not Authorized! Please login with a promoter account')
             document.location.href = '/root/login'
         }
         else{
-            console.log("Welcome" + data.username);
+            console.log("Welcome" + data.user.username);
             $('#login123')
-                .text(data.username)
+                .text(data.user.username)
                 .attr("href","#")
             $("#logout").show();
         }
     });
 
-    $("#logout").on('click',function(){
-        $.get("/root/logout",(data)=>{
-            if(data=='Success'){
-                alert('Logged out!');
-                document.location.href = '/root/login';
-            }
-        });
-    });
+    // $("#logout").on('click',function(){
+    //     $.get("/root/logout",(data)=>{
+    //     });
+    // });
 
     accReq.on('click',()=>{
         hideAll();
