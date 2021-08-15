@@ -36,14 +36,14 @@ route.post('/newRequest',(req,res)=>{
             amount : req.body.amount,
             status : "Pending"
         }).then(()=>{
-            res.send('Success')
+            res.redirect('/business')
         })
     })
 })
 
 route.get('/acceptedRequests',(req, res)=>{
     requests.find(
-        {promoterUsername: "vv"},
+        {promoterUsername: req.session.passport.user.username},
         {status : "Accept"}
     ).then((accReqList)=>{
         res.send(accReqList)
@@ -52,8 +52,8 @@ route.get('/acceptedRequests',(req, res)=>{
 
 route.get('/completedRequests',(req, res)=>{
     requests.find(
-        {promoterUsername: "vv",
-        status : "Completed"}
+        {promoterUsername: req.session.passport.user.username,
+        status : "Complete"}
     ).then((compReqList)=>{
         res.send(compReqList)
     })
@@ -61,7 +61,7 @@ route.get('/completedRequests',(req, res)=>{
 
 route.get('/myPayments',(req, res)=>{
     payments.find(
-        {promoterUsername: "vv"},
+        {promoterUsername: req.session.passport.user.username},
     ).then((paymentsList)=>{
         res.send(paymentsList)
     })
@@ -85,7 +85,7 @@ route.post('/makePayment',(req, res)=>{
                 {requestId : req.body.requestId},
                 {$set: {status : req.body.status}}
             ).then((status)=>{
-                res.send("Success")
+                res.redirect('/business')
             })
         })
     })

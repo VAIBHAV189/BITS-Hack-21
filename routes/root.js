@@ -11,6 +11,10 @@ route.get('/login',(req,res)=>{
     res.render("login")
 })
 
+route.get('/profile',(req,res)=>{
+    res.send(req.session.passport.user)
+})
+
 route.post('/login/user',passport.authenticate('local-user-login',{
         failureRedirect : '/root/login'
     })
@@ -54,7 +58,7 @@ route.post('/signUp',(req,res)=>{
 
 route.get('/logout', function(req, res){
     req.logout();
-    res.redirect('/');
+    res.send('Success')
 });
 
 module.exports = {

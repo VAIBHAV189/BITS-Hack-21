@@ -1,34 +1,38 @@
 const route    =    require('express').Router();
 const requests =    require('../schema/requestList.js').reqList
-console.log(requests)
+const payments =    require('../schema/paymentHistory.js').payHistory
 
 route.get('/',async (req,res)=>{
     let pendingReqList
     let paidReqList
     let compReqList
+    let paymentsList
     pendingReqList  = await requests.find(
     {
-        creatorUsername: "vagi",
+        creatorUsername: req.session.passport.user.username,
         status: "Pending"
     })
     compReqList = await requests.find(
     {
-        creatorUsername : "vagi",
+        creatorUsername : req.session.passport.user.username,
         status : "Complete"
     })
     paidReqList = await requests.find(
     {
-        creatorUsername : "vv",
+        creatorUsername : req.session.passport.user.username,
         status : "Paid"
     })
-    
-    res.render('../public/creator/index.hbs',{pendingReqList,compReqList,paidReqList});
+    paymentsList = await payments.find(
+    {
+        creatorUsername: req.session.passport.user.username
+    })
+    res.render('../public/creator/index.hbs',{pendingReqList, compReqList, paidReqList, paymentsList});
 })
 
 route.get('/pendingRequests', (req, res)=>{
     requests.find(
     {
-        creatorUsername: "vagi",
+        creatorUsername: req.session.passport.user.username,
         status: "Pending"
     }
     ).then((pendingReqList)=>{
@@ -39,7 +43,7 @@ route.get('/pendingRequests', (req, res)=>{
 route.get('/paidRequests', (req, res)=>{
     requests.find(
         {
-            creatorUsername : "vv",
+            creatorUsername : req.session.passport.user.username,
             status : "Paid"
         }
     ).then((paidReqList)=>{
@@ -50,7 +54,7 @@ route.get('/paidRequests', (req, res)=>{
 
 route.get('/myPayments',(req, res)=>{
     payments.find(
-        {creatorUsername: "vagi"},
+        {creatorUsername: req.session.passport.user.username},
     ).then((paymentsList)=>{
         res.render('../public/creator/index.hbs',{paymentsList})
     })
@@ -59,7 +63,7 @@ route.get('/myPayments',(req, res)=>{
 route.get('/completedRequests', (req, res)=>{
     request.find(
         {
-            creatorUsername : req.user.username,
+            creatorUsername : req.session.passport.user.username,
             status : "Completed"
         }
     ).then((compReqList)=>{
@@ -68,12 +72,9 @@ route.get('/completedRequests', (req, res)=>{
 })
 
 route.post('/updRequestStatus', (req, res)=>{
-    console.log("Ye dekho sab",req.body)
     requests.updateOne(
-        {
-            requestId : req.body.requestId,
-            $set: {status : req.body.status}
-        }
+        {   requestId : req.body.requestId},
+        {   $set: {status : req.body.status}}
     ).then((obj)=>{
         res.redirect('/creator')
     })
