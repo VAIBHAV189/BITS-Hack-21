@@ -114,14 +114,14 @@ function plotHistogram(dates, views, subscribersGained) {
 }
 
 function authYtAnalytics() {
-    return gapi.auth2.init({client_id:"805748317470-oa1eufend6rrofu32v6ks3qe50486v2g.apps.googleusercontent.com"})
+    return gapi.auth2.init({client_id:"805748317470-j5o5ehvhbt320iptvo81ct2ok82kd0in.apps.googleusercontent.com"})
         .signIn({scope: "https://www.googleapis.com/auth/yt-analytics.readonly"})
         .then(function() { console.log("Sign-in successful"); },
             function(err) { console.error("Error signing in", err); });
 }
 
 function authAdSense() {
-    return gapi.auth2.init({client_id:"805748317470-oa1eufend6rrofu32v6ks3qe50486v2g.apps.googleusercontent.com"})
+    return gapi.auth2.init({client_id:"805748317470-j5o5ehvhbt320iptvo81ct2ok82kd0in.apps.googleusercontent.com"})
         .signIn({scope: "https://www.googleapis.com/auth/adsense https://www.googleapis.com/auth/adsense.readonly"})
         .then(function() { console.log("Sign-in successful"); },
             function(err) { console.error("Error signing in", err); });
