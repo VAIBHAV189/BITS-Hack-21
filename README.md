@@ -25,7 +25,7 @@ To get started simply:
    `npm install`
 
 3. Run server <br>
-   `npm run server`
+   `npm run start`
 
 5. Server is fired up on port 6979
 
@@ -36,13 +36,13 @@ This project Consists of multiple functionalities
 2. The creator has a dashboard where he/she can view the status of tasks and manage various projects efficiently.
 3. Promoters can send requests to the creator, and the creator has the choice to accept/reject the request.
 4. Provided a feature to link youtube channels with the creator’s dashboard to manage the payments and gather other intel from youtube analytics such as Views and Subscriber count.
-5. Automated Mail Support for the Promoters to keep them updated about the Acceptance/Rejection of their request. Invoices of payments are also sent via mail.
+5. A Payments Dashboard where a creator can view the details of all the payments.
+6. Automated Mail Support for the Promoters to keep them updated about the Acceptance/Rejection of their request. Invoices of payments are also sent via mail.
 
 ## Future Scope
 
-1. A Payments Dashboard where a creator can view the details of all the payments.
-2. A Paytm payment gateway integrated with the Payments Dashboard which will be used to manage the donations.
-3. A chatting window for creator and promoter to have their queries resolved.
+1. A Paytm payment gateway integrated with the Payments Dashboard which will be used to manage the donations.
+2. A chatting window for creator and promoter to have their queries resolved.
 
 ## Technology Stack
 1. HBS
