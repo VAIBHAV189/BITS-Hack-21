@@ -14,6 +14,35 @@ hideAll();
 adsense.show()
 
 $(()=>{
+
+    $.get('/root/profile', (data)=>{
+        // console.log('Hello');
+        if(data.username == undefined){
+            alert('Please Login')
+            document.location.href = '/root/login'
+        }
+        else if(data.userGroup != 'creator'){
+            alert('Not Authorized! Please login with a promoter account')
+            document.location.href = '/root/login'
+        }
+        else{
+            console.log("Welcome" + data.username);
+            $('#login123')
+                .text(data.username)
+                .attr("href","#")
+            $("#logout").show();
+        }
+    });
+
+    $("#logout").on('click',function(){
+        $.get("/root/logout",(data)=>{
+            if(data=='Success'){
+                alert('Logged out!');
+                document.location.href = '/root/login';
+            }
+        });
+    });
+
     $.getJSON('credentials.json', function(cred){
         console.log(cred.web.client_id)
         gapi.load("client:auth2", function() {
@@ -41,7 +70,7 @@ $(()=>{
     })
     mypay.on('click',()=>{
         hideAll();
-        paymentHistory.show();
+        payHistory.show();
     })
 })
 
