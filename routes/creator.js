@@ -22,9 +22,10 @@ route.get('/',async (req,res)=>{
     })
     paidReqList = await requests.find(
     {
-        creatorUsername : "vagi",
+        creatorUsername : "vv",
         status : "Paid"
     })
+    
     res.render('../public/creator/index.hbs',{pendingReqList,compReqList,paidReqList});
 })
 
@@ -42,7 +43,7 @@ route.get('/pendingRequests', (req, res)=>{
 route.get('/paidRequests', (req, res)=>{
     requests.find(
         {
-            creatorUsername : "vagi",
+            creatorUsername : "vv",
             status : "Paid"
         }
     ).then((paidReqList)=>{

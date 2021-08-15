@@ -21,66 +21,73 @@
     <nav class="navbar navbar-expand-sm -50 fixed-top">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-      <!-- // ---------------------------------------------  System Name ------------------------------------------------- // -->
-            <ul class="navbar-nav mr-auto">
-                <li id="system"><h3>CREATOR</h3></li>
+        {{!-----------------------------------------------  System Name ------------------------------------------}}
+            <ul class="navbar-nav mr-auto logo">
+                <a  href="/creator" class="logo"><li id="system"><h3 >CREATOR</h3></li></a>
             </ul>
 
-      <!-- // --------------------------------------------- BUTTONS ------------------------------------------------- // -->
+        {{!----------------------------------------------- BUTTONS -----------------------------------------------}}
             <ul class="navbar-nav  float-xs-right">
 
-      <!-- // --------------------------------------------- HOME ------------------------------------------------- // -->
+        {{!---------------------------------------------- HOME ------------------------------------------------ --}}
                 <li class="nav-item active">
-                    <a class="nav-link xyz" id="home" href="/creator">Home</a>
+                    <a class="nav-link xyz" id="analy" href="#">Analytics</a>
                 </li> 
 
-      <!-- // --------------------------------------------- Pending Requests ------------------------------------------------- // -->
+        {{!----------------------------------------------- Pending Requests --------------------------------------}}
                 <li class="nav-item active">
-                    <a class="nav-link xyz" id="Cart" href="#">Pending Requests</a>
+                    <a class="nav-link xyz" id="pend" href="#">Pending Requests</a>
                 </li>
 
-        <!-- // --------------------------------------------- Paid Requests ------------------------------------------------- // -->
+        {{!----------------------------------------------- Paid Requests -----------------------------------------}}
                 <li class="nav-item active">
-                    <a class="nav-link xyz" id="Cart" href="#">Paid Requests</a>
+                    <a class="nav-link xyz" id="paid" href="#">Paid Requests</a>
                 </li>
 
-       <!-- // --------------------------------------------- Completed Requests ------------------------------------------------- // -->
+        {{!----------------------------------------------- Completed Requests ------------------------------------}}
                 <li class="nav-item active">
-                    <a class="nav-link xyz" id="Cart" href="#">Completed Requests</a>
+                    <a class="nav-link xyz" id="comp" href="#">Completed Requests</a>
                 </li>     
         
-        <!-- // --------------------------------------------- My Payments ------------------------------------------------- // -->
+        {{!---------------------------------------------------My Payments ----------------------------------------}}
                 <li class="nav-item active">
-                    <a class="nav-link xyz" id="Cart" href="#">My Payments</a>
+                    <a class="nav-link xyz" id="mypay" href="#">My Payments</a>
                 </li>   
 
-      <!-- // --------------------------------------------- LOGIN ------------------------------------------------- // -->
+        {{!------------------------------------------------------LOGIN ---------------------------------------------}}
                 <li class="nav-item active">
-                    <a id="login123" class="nav-link xyz" href="/login">Login</a>
+                    <a id="login123" class="nav-link xyz" href="/root/login">Login</a>
                 </li> 
 
                 <li class="nav-item active">
-                    <a id="logout" class="nav-link xyz">Logout</a>
+                    <a id="logout" class="nav-link xyz" href="/root/logout">Logout</a>
                 </li> 
             </ul>
         </div>
     </nav>
 
-    <input type="text" id="accName">
-    <button id="fetchAdSense">Load adSense details</button>
+    <div class="adsense">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control " id="accName">
+            <button id="fetchAdSense" class="text-white btn btn-primary">Load adSense details</button>
+        </div>
+        
 
-    <p></p>
+        <br>
+        <div class="input-group mb-3">
+            <input type="date" class="form-control" id="startDate">
+            <input type="date" class="form-control" id="endDate">
+            <button id="fetchYtAnalytics" class="btn btn-success">Load Youtube Analytics</button>
+        </div>
+        
 
-    <input type="date" id="startDate">
-    <input type="date" id="endDate">
-    <button id="fetchYtAnalytics">Load Youtube Analytics</button>
+        <div class="container">
+            <canvas id="myChart">
 
-    <div class="container">
-        <canvas id="myChart">
-
-        </canvas>
+            </canvas>
+        </div>
     </div>
-
+    
     <div class="pendingReq">
         {{!-- <a href="/creator/pendingRequests">Get Pending Requests</a> --}}
         <table cellspacing="5" cellpadding="5" class="table table-striped table-dark">
@@ -104,17 +111,17 @@
                         <td>{{obj.amount}}</td>
                         <td>{{obj.deadline}}</td>
                         <form method="POST" action="/creator/updRequestStatus">
-                            <td>
+                            <td class="action">
                                 <div class=" group select"> 
                                     <input type="text" name="requestId" value="{{obj.requestId}}" hidden>
                                     <select name="status" id="type" >
-                                        <option disabled selected value> -- Choose Type Of User -- </option>
-                                        <option value="Accept">Accept</option>
+                                        <option disabled selected value>Choose</option>
+                                        <option value="Accept" >Accept</option>
                                         <option value="Reject">Reject</option>
                                     </select>   
                                 </div>
                             </td>
-                            <td><button type="submit">Update</button></td>
+                            <td><button type="submit" class="btn btn-danger">Update</button></td>
                         </form> 
                 </tr>
             {{/each}}
@@ -152,7 +159,7 @@
                                     </select>   
                                 </div>
                             </td>
-                            <td><button type="submit">Update</button></td>
+                            <td><button type="submit" class="btn btn-danger">Update</button></td>
                         </form> 
                 </tr>
             {{/each}}

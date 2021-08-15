@@ -1,3 +1,18 @@
+let ad = $('#analy')
+let pend = $('#pend')
+let paid = $('#paid')
+let comp = $('#comp')
+let mypay = $('#mypay')
+
+let adsense = $('.adsense')
+let pending = $('.pendingReq')
+let paymentDone = $('.paidReq')
+let completed = $('.completedReq')
+let payHistory = $('.payHistory')
+
+hideAll();
+adsense.show()
+
 $(()=>{
     $.getJSON('credentials.json', function(cred){
         console.log(cred.web.client_id)
@@ -5,7 +20,39 @@ $(()=>{
             gapi.auth2.init({client_id:""});
         });
     })
+
+    
+    ad.on('click',()=>{
+        hideAll();
+        adsense.show();
+    })
+    pend.on('click',()=>{
+        hideAll();
+        pending.show();
+    })
+    paid.on('click',()=>{
+        console.log("Show paid ")
+        hideAll();
+        paymentDone.show();
+    })
+    comp.on('click',()=>{
+        hideAll();
+        completed.show();
+    })
+    mypay.on('click',()=>{
+        hideAll();
+        paymentHistory.show();
+    })
 })
+
+function hideAll()
+{
+    adsense.hide();
+    pending.hide();
+    paymentDone.hide();
+    completed.hide();
+    payHistory.hide();
+}
 
 function plotHistogram(dates, views, subscribersGained) {
 
