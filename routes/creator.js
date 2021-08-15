@@ -6,12 +6,12 @@ route.get('/',async (req,res)=>{
     let pendingReqList
     let paidReqList
     let compReqList
-    pendingReqList  =   await requests.find(
+    pendingReqList  = await requests.find(
     {
         creatorUsername: "vagi",
         status: "Pending"
     })
-    compReqList =   await requests.find(
+    compReqList = await requests.find(
     {
         creatorUsername : "vagi",
         status : "Complete"
@@ -25,14 +25,12 @@ route.get('/',async (req,res)=>{
 })
 
 route.get('/pendingRequests', (req, res)=>{
-    // console.log(req.userObject)
     requests.find(
     {
         creatorUsername: "vagi",
         status: "Pending"
     }
     ).then((pendingReqList)=>{
-        // console.log(pendingReqList)
         res.render('../public/creator/index.hbs',{pendingReqList})
     })
 })

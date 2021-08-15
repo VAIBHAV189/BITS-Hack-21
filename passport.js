@@ -89,28 +89,3 @@ module.exports = passport;
 
 
 
-
-// passport.use('local-employee-login',new strategy({
-//     usernameField: 'username',
-//     passwordField: 'password'
-// },
-// function(username,password,done) {
-//     account.find(
-//         {username : username}
-//     )
-//     .then((user)=>{
-//         if(!user){
-//             console.log('No such employee found in database')
-//             return done(null,false,{message : 'Incorrect UserName'})
-//         }
-//         if(user.password != password){
-//             console.log("Entered Password : " + password)
-//             console.log("Employee Password in Database : " + user.password)
-//             console.log('MisMatch!\nTry Again!!')
-//             return done(null,false,{message : 'Incorrect Password'})
-//         }
-//         return done(null,user)
-//     })
-//     .catch(done)
-// } 
-// ));          
