@@ -12,6 +12,50 @@
     <title>Business</title>
 </head>
 <body>
+
+    <nav class="navbar navbar-expand-sm -50 fixed-top">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <!-- // ---------------------------------------------  System Name ------------------------------------------------- // -->
+            <ul class="navbar-nav mr-auto">
+                <li id="system"><h3>PROMOTER</h3></li>
+            </ul>
+
+      <!-- // --------------------------------------------- BUTTONS ------------------------------------------------- // -->
+            <ul class="navbar-nav  float-xs-right">
+
+      <!-- // --------------------------------------------- HOME ------------------------------------------------- // -->
+                <li class="nav-item active">
+                    <a class="nav-link xyz" id="home" href="/business">Home</a>
+                </li> 
+
+      <!-- // --------------------------------------------- Accepted Requests ------------------------------------------------- // -->
+                <li class="nav-item active">
+                    <a class="nav-link xyz" id="Cart" href="#">Accepted Requests</a>
+                </li>
+
+       <!-- // --------------------------------------------- Completed Requests ------------------------------------------------- // -->
+                <li class="nav-item active">
+                    <a class="nav-link xyz" id="Cart" href="#">Completed Requests</a>
+                </li>     
+        
+        <!-- // --------------------------------------------- My Payments ------------------------------------------------- // -->
+                <li class="nav-item active">
+                    <a class="nav-link xyz" id="Cart" href="#">My Payments</a>
+                </li>   
+
+      <!-- // --------------------------------------------- LOGIN ------------------------------------------------- // -->
+                <li class="nav-item active">
+                    <a id="login123" class="nav-link xyz" href="/login">Login</a>
+                </li> 
+
+                <li class="nav-item active">
+                    <a id="logout" class="nav-link xyz">Logout</a>
+                </li> 
+            </ul>
+        </div>
+    </nav>
+
     <form action="/business/newRequest" method="POST">
         <input type="text" name="requestId" placeholder="Request ID">
         <input type="text" name="requestMetaData" placeholder="Description">
@@ -25,7 +69,7 @@
     </form>
 
     <div class="acceptedReq">
-        <a href="/business/acceptedRequests">Get Accepted Requests</a>
+        {{!-- <a href="/business/acceptedRequests">Get Accepted Requests</a> --}}
         <table cellspacing="5" cellpadding="5" class="table table-striped table-dark">
             <thead>
                 <th>Request Id</th>
@@ -85,7 +129,7 @@
     </div>
 
     <div class="completedReq">
-        <a href="/business/completedRequests">Get Completed Requests</a>
+        {{!-- <a href="/business/completedRequests">Get Completed Requests</a> --}}
         <table cellspacing="5" cellpadding="5" class="table table-striped table-dark">
             <thead>
                 <th>Request Id</th>
@@ -107,7 +151,7 @@
     </div>
 
     <div class="payHistory">
-        <a href="/business/myPayments">Get My Payment History</a>
+        {{!-- <a href="/business/myPayments">Get My Payment History</a> --}}
         <table cellspacing="5" cellpadding="5" class="table table-striped table-dark">
             <thead>
                 <th>Payment ID</th>
