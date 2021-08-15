@@ -53,6 +53,6 @@ This project Consists of multiple functionalities
 6. Bcrypt
 7. Node Mailer
 8. MongoDB
-9. Adsense API
+9. Adsense Management API
 10. Youtube Analytics API
 
