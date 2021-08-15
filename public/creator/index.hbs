@@ -14,7 +14,7 @@
 <body>
 
     <input type="text" id="accName">
-    <button id="fetchAdSense">Load AdSense details</button>
+    <button id="fetchAdSense">Load adSense details</button>
 
     <p></p>
 
@@ -28,6 +28,48 @@
         </canvas>
     </div>
 
+    <div class="pendingReq">
+        <a href="/creator/pendingRequests">Get Pending Requests</a>
+        <table cellspacing="5" cellpadding="5" class="bg-white">
+            <thead>
+                <th>Request Id</th>
+                <th>Request Meta Data</th>
+                <th>Offered on</th>
+                <th>Promoter Username</th>
+                <th>Amount(in Rs)</th>
+                <th>Deadline</th>
+                <th>Action</th>
+                <th>Submit</th>
+            </thead>
+            {{#each pendingReqList as |obj|}}
+                <tr>
+                    
+                        <td value="{{obj.requestId}}" name="requestId">{{obj.requestId}}</td>
+                        <td>{{obj.requestMetaData}}</td>
+                        <td>{{obj.offeredOn}}</td>
+                        <td>{{obj.promoterUsername}}</td>
+                        <td>{{obj.amount}}</td>
+                        <td>{{obj.deadline}}</td>
+                        <form method="POST" action="/creator/updRequestStatus">
+                            <td name="status">
+                                
+                                <div class=" group select"> 
+                                    <input type="text" name="requestId" value="{{obj.requestId}}" hidden>
+                                    <select name="status" id="type" >
+                                        <option disabled selected value> -- Choose Type Of User -- </option>
+                                        <option value="Accept">Accept</option>
+                                        <option value="Reject">Reject</option>
+                                    </select>   
+                                    
+                                </div>
+                                
+                            </td>
+                            <td><button type="submit">Update</button></td>
+                        </form> 
+                </tr>
+            {{/each}}
+        </table>
+    </div>
 
     <script src="script.js"></script>
 </body>

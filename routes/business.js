@@ -1,6 +1,6 @@
-const route    =    require('express').Router;
-const requests =    require('./schema/requestList.js').requestList
-const payments =    require('./schema/paymentHistory.js').paymentHistory
+const route    =    require('express').Router();
+const requests =    require('../schema/requestList.js').requestList
+const payments =    require('../schema/paymentHistory.js').paymentHistory
 
 route.post('/newRequest',(req,res)=>{
     requests.insertOne(req.body)

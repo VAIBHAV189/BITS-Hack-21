@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 const requestStatus = {
     recieved: "Recieved",
     inProgress: "In Progress",
+    agreed: "agreed",
+    notAgreed: "notAgreed",
     completed: "Completed"
 }
 
@@ -14,6 +16,10 @@ const requestList = new mongoose.Schema({
     },
     requestMetaData: {
         type: String
+    },
+    promoterUsername:{
+        type: String,
+        required: true
     },
     creatorUsername: {
         type: String,
@@ -31,16 +37,18 @@ const requestList = new mongoose.Schema({
         type: Date,
         required: true
     },
+    amount:{
+        type: Number,
+        required:true
+    },
     status: {
-        type: Map,
-        required: true,
-        unique: true
+        type: String,
+        required: true
     }
 })
 
-requestList = mongoose.model('requestList', requestList)
+let reqList = mongoose.model('requestList', requestList)
 
 module.exports = {
-    requestList,
-    requestStatus
+    reqList
 }
