@@ -3,10 +3,6 @@ const requests =    require('../schema/requestList.js').reqList
 console.log(requests)
 
 route.get('/',async (req,res)=>{
-    // if(req.session.passport.user &&  req.session.passport.user.userGroup!="creator")
-    // {
-    //     return res.redirect('/root/login')
-    // }
     let pendingReqList
     let paidReqList
     let compReqList

@@ -56,15 +56,12 @@
         </div>
     </nav>
 
-    <form action="/business/newRequest" method="POST">
-        <input type="text" name="requestId" placeholder="Request ID">
+    <form action="/business/newRequest" method="POST" id="myForm">
         <input type="text" name="requestMetaData" placeholder="Description">
         <input type="text" name="creatorUsername" placeholder="Creator UserName">
-        <input type="date" name="offeredOn" placeholder="Today's Date">
+        <input type="date" name="offeredOn" placeholder="Offer Date">
         <input type="date" name="deadline" placeholder="Deadline Date">
         <input type="text" name="amount" placeholder="Amount">
-        <input type="text" name="promoterUsername" value="vv" hidden>
-        <input type="text" name="status" value="Pending" hidden>
         <button type="submit">Submit</button>
     </form>
 
@@ -79,7 +76,6 @@
                 <th>Amount(in Rs)</th>
                 <th>Deadline</th>
                 <th>Payment Mode</th>
-                <th>Payment Id</th>
                 <th>Payment Date</th>
                 <th>Action</th>
                 <th>Submit</th>
@@ -103,9 +99,6 @@
                                     <option value="NetBanking">NetBanking</option>
                                 </select>   
                             </div>
-                        </td>
-                        <td>
-                            <input type="text" name="paymentId">
                         </td>
                         <td>
                             <input type="date" name="timestamp">
