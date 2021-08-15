@@ -1,0 +1,12 @@
+body{
+    height: 100vh;
+    width: 100%;
+    background-image: url('../images/light_gray.jpg');
+    background-size: cover;
+    background-repeat: repeat-y;
+}
+
+.table{
+    width: 1000px;
+    margin: 0 auto;
+}
