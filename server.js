@@ -5,6 +5,7 @@ const session   = require('express-session')
 const db        = require('./db')()
 const creator   = require('./routes/creator').route
 const promotor  = require('./routes/business').route
+const mail      = require('./routes/mailService').route
 
 server.use(express.json())
 server.use(express.urlencoded({extended:true}))
@@ -22,6 +23,7 @@ server.use(express.static('public'))
 server.use('/root',root)
 server.use('/creator',creator)
 server.use('/business', promotor)
+server.use('/mail',mail)
 
 const PORT = process.env.PORT || 6979
 server.listen(PORT,()=>{
