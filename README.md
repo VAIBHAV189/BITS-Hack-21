@@ -17,20 +17,17 @@ We have developed a solution for the creator economy which helps to manage their
 
 To get started simply:
 
-1. Install dependencies packages: <br>
-   `cd server` <br>
+1. Clone the repo <br>
+   `git clone https://github.com/VAIBHAV189/BITS-Hack-21.git` 
+
+2. Install dependencies packages: <br>
+   `cd BITS-Hack-21` <br>
    `npm install`
 
-2. Set up your local mongodb server on port 27017 and run <br>
-   `mongod`
+3. Run server <br>
+   `npm run server`
 
-3. Build the dist folder <br>
-   `yarn build`
-
-4. Run server <br>
-   `yarn dev`
-
-5. Server is fired up on port 6071
+5. Server is fired up on port 6979
 
 
 ## Functionalities
