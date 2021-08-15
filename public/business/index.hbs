@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business</title>
+</head>
+<body>
+    <form action="/business/newRequest" method="POST">
+        <input type="text" name="requestId" placeholder="Request ID">
+        <input type="text" name="requestMetaData" placeholder="Description">
+        <input type="text" name="creatorUsername" placeholder="Creator UserName">
+        <input type="date" name="offeredOn" placeholder="Today's Date">
+        <input type="date" name="deadline" placeholder="Deadline Date">
+        <input type="text" name="amount" placeholder="Amount">
+        <input type="text" name="promoterUsername" value="vv" hidden>
+        <input type="text" name="status" value="Pending" hidden>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
