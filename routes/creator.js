@@ -5,6 +5,7 @@ console.log(requests)
 route.get('/',(req,res)=>{
     res.render('../public/creator/index.hbs');
 })
+
 route.get('/pendingRequests', (req, res)=>{
     // console.log(req.userObject)
     requests.find(
@@ -19,11 +20,22 @@ route.get('/pendingRequests', (req, res)=>{
 })
 
 route.get('/paidRequests', (req, res)=>{
-    request.find(
-        {creatorUsername : req.user.username},
-        {status : "Paid"}
+    requests.find(
+        {
+            creatorUsername : "vagi",
+            status : "Paid"
+        }
     ).then((paidReqList)=>{
-        res.send(paidReqList)
+        console.log(paidReqList)
+        res.render('../public/creator/index.hbs',{paidReqList})
+    })
+})
+
+route.get('/myPayments',(req, res)=>{
+    payments.find(
+        {creatorUsername: "vagi"},
+    ).then((paymentsList)=>{
+        res.render('../public/creator/index.hbs',{paymentsList})
     })
 })
 
