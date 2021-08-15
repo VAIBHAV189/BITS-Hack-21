@@ -11,7 +11,7 @@ const paymentHistory = new mongoose.Schema({
         required: true,
         unique: true
     },
-    promotorUsername: {
+    promoterUsername: {
         type: String,
         required: true,
     },
