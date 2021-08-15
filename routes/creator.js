@@ -2,40 +2,33 @@ const route    =    require('express').Router();
 const requests =    require('../schema/requestList.js').reqList
 console.log(requests)
 
-route.get('/',(req,res)=>{
+route.get('/',async (req,res)=>{
 
-    let pendingReqList=[]
-    let paidReqList=[]
-    let compReqList=[]
-    requests.find(
+    let pendingReqList
+    let paidReqList
+    let compReqList
+    pendingReqList  =   await requests.find(
     {
         creatorUsername: "vagi",
         status: "Pending"
-    }
-    ).then((pending)=>{
-
-        pendingReqList=pending
     })
-    request.find(
+    compReqList =   await requests.find(
     {
         creatorUsername : "vagi",
-        status : "Completed"
-    }
-    ).then((completed)=>{
-        compReqList=completed
+        status : "Complete"
     })
 
-    request.find(
+    paidReqList = await requests.find(
     {
         creatorUsername : "vagi",
         status : "Paid"
-    }
-    ).then((paid)=>{
-        paidReqList=paid
     })
-
-    res.render('../public/creator/index.hbs',{pendingReqList,paidReqList,compReqList});
+    console.log("Pending wale dekho",pendingReqList)
+    console.log("Comp wale dekho",compReqList)
+    console.log("Paid wale dekho",paidReqList)
+    res.render('../public/creator/index.hbs',{pendingReqList,compReqList,paidReqList});
 })
+
 route.get('/pendingRequests', (req, res)=>{
     // console.log(req.userObject)
     requests.find(
@@ -50,13 +43,22 @@ route.get('/pendingRequests', (req, res)=>{
 })
 
 route.get('/paidRequests', (req, res)=>{
-    request.find(
+    requests.find(
         {
-            creatorUsername : req.user.username,
+            creatorUsername : "vagi",
             status : "Paid"
         }
     ).then((paidReqList)=>{
-        res.send(paidReqList)
+        console.log(paidReqList)
+        res.render('../public/creator/index.hbs',{paidReqList})
+    })
+})
+
+route.get('/myPayments',(req, res)=>{
+    payments.find(
+        {creatorUsername: "vagi"},
+    ).then((paymentsList)=>{
+        res.render('../public/creator/index.hbs',{paymentsList})
     })
 })
 
@@ -79,8 +81,7 @@ route.post('/updRequestStatus', (req, res)=>{
             $set: {status : req.body.status}
         }
     ).then((obj)=>{
-        // console.log(obj)
-        res.send("Pika chha gaya")
+        res.redirect('/creator')
     })
 })
 

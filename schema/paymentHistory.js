@@ -1,7 +1,5 @@
 const mongoose = require('mongoose')
 
-
-
 const paymentHistory = new mongoose.Schema({
     paymentId: {
         type: String,

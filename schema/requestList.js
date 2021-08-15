@@ -1,5 +1,12 @@
 const mongoose = require('mongoose')
 
+const requestStatus = {
+    recieved: "Recieved",
+    inProgress: "In Progress",
+    agreed: "agreed",
+    notAgreed: "notAgreed",
+    completed: "Completed"
+}
 
 const requestList = new mongoose.Schema({
     requestId: {

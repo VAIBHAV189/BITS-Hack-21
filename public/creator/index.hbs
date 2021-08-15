@@ -44,15 +44,14 @@
             {{#each pendingReqList as |obj|}}
                 <tr>
                     
-                        <td value="{{obj.requestId}}" name="requestId">{{obj.requestId}}</td>
+                        <td>{{obj.requestId}}</td>
                         <td>{{obj.requestMetaData}}</td>
                         <td>{{obj.offeredOn}}</td>
                         <td>{{obj.promoterUsername}}</td>
                         <td>{{obj.amount}}</td>
                         <td>{{obj.deadline}}</td>
                         <form method="POST" action="/creator/updRequestStatus">
-                            <td name="status">
-                                
+                            <td>
                                 <div class=" group select"> 
                                     <input type="text" name="requestId" value="{{obj.requestId}}" hidden>
                                     <select name="status" id="type" >
@@ -60,9 +59,7 @@
                                         <option value="Accept">Accept</option>
                                         <option value="Reject">Reject</option>
                                     </select>   
-                                    
                                 </div>
-                                
                             </td>
                             <td><button type="submit">Update</button></td>
                         </form> 
@@ -70,6 +67,93 @@
             {{/each}}
         </table>
     </div>
+
+    <div class="paidReq">
+        <a href="/creator/paidRequests">Get Paid Requests</a>
+        <table cellspacing="5" cellpadding="5" class="bg-white">
+            <thead>
+                <th>Request Id</th>
+                <th>Request Meta Data</th>
+                <th>Offered on</th>
+                <th>Promoter Username</th>
+                <th>Amount(in Rs)</th>
+                <th>Deadline</th>
+                <th>Action</th>
+                <th>Submit</th>
+            </thead>
+            {{#each paidReqList as |obj|}}
+                <tr>
+                        <td>{{obj.requestId}}</td>
+                        <td>{{obj.requestMetaData}}</td>
+                        <td>{{obj.offeredOn}}</td>
+                        <td>{{obj.promoterUsername}}</td>
+                        <td>{{obj.amount}}</td>
+                        <td>{{obj.deadline}}</td>
+                        <form method="POST" action="/creator/updRequestStatus">
+                            <td>
+                                <div class=" group select"> 
+                                    <input type="text" name="requestId" value="{{obj.requestId}}" hidden>
+                                    <select name="status" id="type" >
+                                        <option disabled selected value> -- Choose -- </option>
+                                        <option value="Complete">Mark as Done</option>
+                                    </select>   
+                                </div>
+                            </td>
+                            <td><button type="submit">Update</button></td>
+                        </form> 
+                </tr>
+            {{/each}}
+        </table>
+    </div>
+
+    <div class="completedReq">
+        <a href="/creator/completedRequests">Get Completed Requests</a>
+        <table cellspacing="5" cellpadding="5" class="bg-white">
+            <thead>
+                <th>Request Id</th>
+                <th>Request Meta Data</th>
+                <th>Offered on</th>
+                <th>Promoter Username</th>
+                <th>Amount(in Rs)</th>
+            </thead>
+            {{#each compReqList as |obj|}}
+                <tr>
+                    <td>{{obj.requestId}}</td>
+                    <td>{{obj.requestMetaData}}</td>
+                    <td>{{obj.offeredOn}}</td>
+                    <td>{{obj.promoterUsername}}</td>
+                    <td>{{obj.amount}}</td>
+                </tr>
+            {{/each}}
+        </table>
+    </div>
+
+    <div class="payHistory">
+        <a href="/creator/myPayments">Get My Payment History</a>
+        <table cellspacing="5" cellpadding="5" class="bg-white">
+            <thead>
+                <th>Payment ID</th>
+                <th>Request ID</th>
+                <th>Promoter Username</th>
+                <th>Payment Type</th>
+                <th>Payment Mode</th>
+                <th>TimeStamp</th>
+                <th>Amount(in Rs)</th>
+            </thead>
+            {{#each paymentsList as |obj|}}
+            <tr>
+                <td>{{obj.paymentId}}</td>
+                <td>{{obj.requestId}}</td>
+                <td>{{obj.promotorUsername}}</td>
+                <td>{{obj.paymentType}}</td>
+                <td>{{obj.paymentMode}}</td>
+                <td>{{obj.timestamp}}</td>
+                <td>{{obj.amount}}</td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+
 
     <script src="script.js"></script>
 </body>
