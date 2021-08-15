@@ -3,7 +3,6 @@ const requests =    require('../schema/requestList.js').reqList
 console.log(requests)
 
 route.get('/',async (req,res)=>{
-    console.log("Vagi ke kehne pe printing ", req)
     let pendingReqList
     let paidReqList
     let compReqList
@@ -22,9 +21,6 @@ route.get('/',async (req,res)=>{
         creatorUsername : "vagi",
         status : "Paid"
     })
-    console.log("Pending wale dekho",pendingReqList)
-    console.log("Comp wale dekho",compReqList)
-    console.log("Paid wale dekho",paidReqList)
     res.render('../public/creator/index.hbs',{pendingReqList,compReqList,paidReqList});
 })
 
