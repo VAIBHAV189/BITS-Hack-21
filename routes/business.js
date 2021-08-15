@@ -6,20 +6,22 @@ route.get('/',async (req,res)=>{
     let accReqList
     let compReqList
     let paymentsList
-    accReqList = await requests.find(
-    {
-        promoterUsername: req.session.passport.user.username,
-        status : "Accept"
-    })
-    compReqList = await requests.find(
-    {
-        promoterUsername: req.session.passport.user.username,
-        status : "Complete"
-    })
-    paymentsList = await payments.find(
-    {
-        promoterUsername: req.session.passport.user.username
-    })
+    if(req.session.passport != undefined){
+        accReqList = await requests.find(
+        {
+            promoterUsername: req.session.passport.user.username,
+            status : "Accept"
+        })
+        compReqList = await requests.find(
+        {
+            promoterUsername: req.session.passport.user.username,
+            status : "Complete"
+        })
+        paymentsList = await payments.find(
+        {
+            promoterUsername: req.session.passport.user.username
+        })
+    }
     res.render('../public/business/index.hbs',{accReqList, compReqList, paymentsList});
 })
 

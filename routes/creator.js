@@ -1,31 +1,35 @@
 const route    =    require('express').Router();
 const requests =    require('../schema/requestList.js').reqList
 const payments =    require('../schema/paymentHistory.js').payHistory
+const user     =    require('../schema/accountDetails').account
+const fetch    =    require("node-fetch");
 
 route.get('/',async (req,res)=>{
     let pendingReqList
     let paidReqList
     let compReqList
     let paymentsList
-    pendingReqList  = await requests.find(
-    {
-        creatorUsername: req.session.passport.user.username,
-        status: "Pending"
-    })
-    compReqList = await requests.find(
-    {
-        creatorUsername : req.session.passport.user.username,
-        status : "Complete"
-    })
-    paidReqList = await requests.find(
-    {
-        creatorUsername : req.session.passport.user.username,
-        status : "Paid"
-    })
-    paymentsList = await payments.find(
-    {
-        creatorUsername: req.session.passport.user.username
-    })
+    if(req.session.passport != undefined){
+        pendingReqList  = await requests.find(
+        {
+            creatorUsername: req.session.passport.user.username,
+            status: "Pending"
+        })
+        compReqList = await requests.find(
+        {
+            creatorUsername : req.session.passport.user.username,
+            status : "Complete"
+        })
+        paidReqList = await requests.find(
+        {
+            creatorUsername : req.session.passport.user.username,
+            status : "Paid"
+        })
+        paymentsList = await payments.find(
+        {
+            creatorUsername: req.session.passport.user.username
+        })
+    }
     res.render('../public/creator/index.hbs',{pendingReqList, compReqList, paidReqList, paymentsList});
 })
 
@@ -71,13 +75,42 @@ route.get('/completedRequests', (req, res)=>{
     })
 })
 
-route.post('/updRequestStatus', (req, res)=>{
-    requests.updateOne(
+route.post('/updRequestStatus',async (req, res)=>{
+    await requests.updateOne(
         {   requestId : req.body.requestId},
         {   $set: {status : req.body.status}}
-    ).then((obj)=>{
-        res.redirect('/creator')
+    )
+    let reqDetails = await requests.findOne(
+        {requestId : req.body.requestId}
+    )
+    let receiverDetails = await user.findOne(
+        {username : reqDetails.promoterUsername}
+    )
+    let url = "http://localhost:6979/mail/" + req.body.status;
+    let data = {
+        from : {
+            name : reqDetails.creatorUsername,
+            subject : reqDetails.status + "ed request of id " + reqDetails.requestId 
+        },
+        to : {
+            name : reqDetails.promoterUsername,
+            email : receiverDetails.email
+        },
+        id : reqDetails.requestId,
+        content : reqDetails.requestMetaData,
+        pay : reqDetails.amount
+    }
+    // console.log("URL : ",url)
+    // console.log("Sending : ", data)
+    let response = await fetch(url, {
+        method : 'POST',
+        headers : {
+            'Content-Type': 'application/json'
+        },
+        body   : JSON.stringify(data)
     })
+    console.log("Response : ",response)
+    res.redirect('/creator')
 })
 
 module.exports = {

@@ -7,94 +7,94 @@ const nodemailer = require("nodemailer")
 route.use(passport.initialize());
 route.use(passport.session());
 
-route.get('/rejectionMail',
-    async function(req,res){
-        console.log('This is req.user->', req.user)
-        if(req.user) {
-            console.log(req.body)
-            rejectedDescriptionHTML = `
-             <h1> Hello This is the rejection mail! </h1>
-            `
-            const mail = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                  user: 'your-email@gmail.com',
-                  pass: 'your-gmail-password'
-                }
-            })
-            const mailOptions = {
-                from: 'youremail@gmail.com',
-                to: 'myfriend@gmail.com',
-                subject: 'Sending Email via Node.js',
-                html: rejectedDescriptionHTML
-            } 
-            transporter.sendMail(mailOptions, function(error, info){
-                if (error) console.log(error);
-                else  console.log('Email sent: ' + info.response);
-            })  
-        }
-        else res.redirect('/logout')
-        res.status(200).status('Rejection sent Succesfully!!')
-})
-
-route.get('/acceptanceMail',
+route.post('/Accept',
     async function(req,res) {
-        console.log('This is req.user->', req.user)
-        if(req.user) {
-            console.log(req.body)
-            acceptDescriptionHTML = `
-             <h1> Hello This is the acceptance mail! </h1>
-            `
-            const mail = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                  user: 'your-email@gmail.com',
-                  pass: 'your-gmail-password'
-                }
-            })
-            const mailOptions = {
-                from: 'youremail@gmail.com',
-                to: 'myfriend@gmail.com',
-                subject: 'Sending Email via Node.js',
-                html: acceptDescriptionHTML
-            } 
-            transporter.sendMail(mailOptions, function(error, info){
-                if (error) console.log(error);
-                else  console.log('Email sent: ' + info.response);
-            })  
-        }
-        else res.redirect('/logout')
-        res.status(200).status('Acceptance sent Succesfully!!')
+        acceptDescriptionHTML = `
+            <h3>Hello This is an acceptance mail</h3>
+            <p>
+            Your request id ${req.body.id} has been accepted by ${req.body.from.name} .
+            The details of your request were as follows : ${req.body.content} .
+            Please make a payment of ${req.body.pay}
+            </p>
+        `
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'contentcreatoreconomy@gmail.com',
+                pass: 'vvva@123'
+            }
+        })
+        const mailOptions = {
+            from: 'contentcreatoreconomy@gmail.com',
+            to: req.body.to.email,
+            subject: req.body.from.subject,
+            html: acceptDescriptionHTML
+        } 
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) console.log(error);
+            else  console.log('Email sent: ' + info.response);
+        })  
+        res.send('Success')
 })
 
-route.get('/completionMail',
-    async function(req,res){
-        console.log('This is req.user->', req.user)
-        if(req.user) {
-            console.log(req.body)
-            taskCompleteDescriptionHTML = `
-             <h1> Hello This is the rejection mail! </h1>
-            `
-            const mail = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                  user: 'your-email@gmail.com',
-                  pass: 'your-gmail-password'
-                }
-            })
-            const mailOptions = {
-                from: 'youremail@gmail.com',
-                to: 'myfriend@gmail.com',
-                subject: 'Sending Email via Node.js',
-                html: taskCompleteDescriptionHTML
-            } 
-            transporter.sendMail(mailOptions, function(error, info){
-                if (error) console.log(error);
-                else  console.log('Email sent: ' + info.response);
-            })  
-        }
-        else res.redirect('/logout')
-        res.status(200).status('Rejection sent Succesfully!!')
+route.post('/Reject',
+    async function(req,res) {
+        rejectDescriptionHTML = `
+            <h3>Hello This is a rejection mail</h3>
+            <p>
+            Your request id ${req.body.id} has been rejected by ${req.body.from.name} .
+            The details of your request were as follows : ${req.body.content} .
+            Better luck next time :)
+            </p>
+        `
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'contentcreatoreconomy@gmail.com',
+                pass: 'vvva@123'
+            }
+        })
+        const mailOptions = {
+            from: 'contentcreatoreconomy@gmail.com',
+            to: req.body.to.email,
+            subject: req.body.from.subject,
+            html: rejectDescriptionHTML
+        } 
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) console.log(error);
+            else  console.log('Email sent: ' + info.response);
+        })  
+        res.send('Success')
+})
+
+route.post('/Complete',
+    async function(req,res) {
+        completeDescriptionHTML = `
+            <h3>Hello This is a completion mail</h3>
+            <p>
+            Your request id ${req.body.id} has been completed by ${req.body.from.name} .
+            The details of your request were as follows : ${req.body.content} .
+            Thanks for trying Creator Bonanza.
+            </p>
+        `
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'contentcreatoreconomy@gmail.com',
+                pass: 'vvva@123'
+            }
+        })
+        const mailOptions = {
+            from: 'contentcreatoreconomy@gmail.com',
+            to: req.body.to.email,
+            subject: req.body.from.subject,
+            html: completeDescriptionHTML
+        } 
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) console.log(error);
+            else  console.log('Email sent: ' + info.response);
+        })  
+        res.send('Success')
 })
 
 module.exports = {
