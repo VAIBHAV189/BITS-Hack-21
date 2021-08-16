@@ -41,7 +41,7 @@ $(()=>{
             document.location.href = '/root/login'
         }
         else{
-            console.log("Welcome" + data.user.username);
+            // console.log("Welcome" + data.user.username);
             $('#login123')
                 .text(data.user.username)
                 .attr("href","#")

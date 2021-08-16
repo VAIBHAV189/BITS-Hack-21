@@ -29,7 +29,6 @@ const accountDetails = new mongoose.Schema({
 
 accountDetails.path('password').validate(function (value) {
     return true;
-    // Agar regex karna ho to
 }, 'Wrong Password');
 
 const account = mongoose.model('accountDetails', accountDetails)

@@ -18,7 +18,6 @@ server.use(session({
 
 server.set("view engine","hbs")
 server.use(express.static('public'))
-// server.use(express.static('public/creator'))
 
 server.use('/root',root)
 server.use('/creator',creator)

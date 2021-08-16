@@ -20,40 +20,40 @@
     <nav class="navbar navbar-expand-sm -50 fixed-top">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-      <!-- // ---------------------------------------------  System Name ------------------------------------------------- // -->
+    {{!---------------------------------------------  System Name ------------------------------------------}}
             <ul class="navbar-nav mr-auto">
                 <li id="system"><h3>PROMOTER</h3></li>
             </ul>
 
-      <!-- // --------------------------------------------- BUTTONS ------------------------------------------------- // -->
+    {{!----------------------------------------------- BUTTONS -----------------------------------------------}}
             <ul class="navbar-nav  float-xs-right">
 
-      <!-- // --------------------------------------------- HOME ------------------------------------------------- // -->
+    {{!----------------------------------------------- HOME --------------------------------------------------}}
                 <li class="nav-item active">
                     <a class="nav-link xyz" id="home" href="/business">Home</a>
                 </li> 
 
-    <!-- // --------------------------------------------- Accepted Requests ------------------------------------------------- // -->
+    {{!----------------------------------------------- New Requests ------------------------------------------}}
                 <li class="nav-item active">
                     <a class="nav-link xyz" id="newReq" href="#">New Request</a>
                 </li>
 
-      <!-- // --------------------------------------------- Accepted Requests ------------------------------------------------- // -->
+    {{!----------------------------------------------- Accepted Requests ----------------------------------------}}
                 <li class="nav-item active">
                     <a class="nav-link xyz" id="accReq" href="#">Accepted Requests</a>
                 </li>
 
-       <!-- // --------------------------------------------- Completed Requests ------------------------------------------------- // -->
+    {{!------------------------------------------------ Completed Requests --------------------------------------}}
                 <li class="nav-item active">
                     <a class="nav-link xyz" id="compReq" href="#">Completed Requests</a>
                 </li>     
         
-        <!-- // --------------------------------------------- My Payments ------------------------------------------------- // -->
+    {{!----------------------------------------------- My Payments -------------------------------------------------}}
                 <li class="nav-item active">
                     <a class="nav-link xyz" id="pays" href="#">My Payments</a>
                 </li>   
 
-      <!-- // --------------------------------------------- LOGIN ------------------------------------------------- // -->
+    {{!---------------------------------------------- LOGIN -------------------------------------------------}}
                 <li class="nav-item active">
                     <a id="login123" class="nav-link xyz" href="/root/login">Login</a>
                 </li> 
@@ -70,9 +70,11 @@
         <form action="/business/newRequest" method="POST">
             <input type="text" name="requestMetaData" placeholder="Description">
             <input type="text" name="creatorUsername" placeholder="Creator UserName">
-            <input type="date" name="offeredOn" placeholder="Offer Date">
-            <input type="date" name="deadline" placeholder="Deadline Date">
-            <input type="text" name="amount" placeholder="Amount">
+            <label for="offeredOn" style="color:red">Offering On</label>
+            <input type="date" name="offeredOn" id="offeredOn" placeholder="Offer Date" >
+            <label for="deadline" style="color:red">Deadline Date</label>
+            <input type="date" name="deadline" id="deadline" placeholder="Deadline Date">
+            <input type="text" name="amount" placeholder="Amount (in INR)">
             <button type="submit" class="btn btn-primary">CREATE</button>
         </form>
     </div>
@@ -126,7 +128,7 @@
                         <input type="text" name="requestId" value="{{obj.requestId}}" hidden>
                         <input type="text" name="amount" value="{{obj.amount}}" hidden>
                         <input type="text" name="creatorUsername" value="{{obj.creatorUsername}}" hidden>
-                        <td><button type="submit">Update</button></td>
+                        <td><button type="submit" class="btn btn-primary">Update</button></td>
                     </form> 
                 </tr>
             {{/each}}

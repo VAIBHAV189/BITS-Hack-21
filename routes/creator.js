@@ -51,7 +51,6 @@ route.get('/paidRequests', (req, res)=>{
             status : "Paid"
         }
     ).then((paidReqList)=>{
-        console.log(paidReqList)
         res.render('../public/creator/index.hbs',{paidReqList})
     })
 })
@@ -100,8 +99,7 @@ route.post('/updRequestStatus',async (req, res)=>{
         content : reqDetails.requestMetaData,
         pay : reqDetails.amount
     }
-    // console.log("URL : ",url)
-    // console.log("Sending : ", data)
+    
     let response = await fetch(url, {
         method : 'POST',
         headers : {
@@ -109,7 +107,6 @@ route.post('/updRequestStatus',async (req, res)=>{
         },
         body   : JSON.stringify(data)
     })
-    console.log("Response : ",response)
     res.redirect('/creator')
 })
 
@@ -117,4 +114,3 @@ module.exports = {
     route
 }
 
-// Pending -> Accept/Reject ->  Paid -> completed

@@ -70,7 +70,6 @@ route.get('/myPayments',(req, res)=>{
 })
 
 route.post('/makePayment',(req, res)=>{
-    console.log(req.body)
     payments.count({}, function( err, count){
         count += 1
         payments.create({

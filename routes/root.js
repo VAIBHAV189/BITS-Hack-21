@@ -19,7 +19,6 @@ route.post('/login/user',passport.authenticate('local-user-login',{
         failureRedirect : '/root/login'
     })
     ,function(req,res){
-        console.log("Logging In User: ",req.body.username)
         if(req.session.passport.user.userGroup=='creator')
         {
             return res.redirect('/creator')

@@ -36,7 +36,7 @@ $(()=>{
             document.location.href = '/root/login'
         }
         else{
-            console.log("Welcome" + data.user.username);
+            // console.log("Welcome" + data.user.username);
             $('#login123')
                 .text(data.user.username)
                 .attr("href","#")
@@ -52,7 +52,7 @@ $(()=>{
     // });
 
     $.getJSON('credentials.json', function(cred){
-        console.log(cred.web.client_id)
+        // console.log(cred.web.client_id)
         gapi.load("client:auth2", function() {
             gapi.auth2.init({client_id:""});
         });
@@ -68,7 +68,7 @@ $(()=>{
         pending.show();
     })
     paid.on('click',()=>{
-        console.log("Show paid ")
+        // console.log("Show paid ")
         hideAll();
         paymentDone.show();
     })
@@ -116,28 +116,44 @@ function plotHistogram(dates, views, subscribersGained) {
 function authYtAnalytics() {
     return gapi.auth2.init({client_id:"805748317470-j5o5ehvhbt320iptvo81ct2ok82kd0in.apps.googleusercontent.com"})
         .signIn({scope: "https://www.googleapis.com/auth/yt-analytics.readonly"})
-        .then(function() { console.log("Sign-in successful"); },
-            function(err) { console.error("Error signing in", err); });
+        .then(function() { 
+            // console.log("Sign-in successful"); 
+        },
+        function(err) { 
+            // console.error("Error signing in", err); 
+        });
 }
 
 function authAdSense() {
     return gapi.auth2.init({client_id:"805748317470-j5o5ehvhbt320iptvo81ct2ok82kd0in.apps.googleusercontent.com"})
         .signIn({scope: "https://www.googleapis.com/auth/adsense https://www.googleapis.com/auth/adsense.readonly"})
-        .then(function() { console.log("Sign-in successful"); },
-            function(err) { console.error("Error signing in", err); });
+        .then(function() { 
+            // console.log("Sign-in successful"); 
+        },
+        function(err) { 
+            // console.error("Error signing in", err); 
+        });
 }
 
 function loadClientYtAnalytics() {
     return gapi.client.load("https://youtubeanalytics.googleapis.com/$discovery/rest?version=v2")
-        .then(function() { console.log("GAPI client loaded for API"); },
-            function(err) { console.error("Error loading GAPI client for API", err); });
+        .then(function() { 
+            // console.log("GAPI client loaded for API"); 
+        },
+        function(err) { 
+            // console.error("Error loading GAPI client for API", err); 
+        });
 }
 
 function loadClientAdSense() {
     gapi.client.setApiKey("AIzaSyCm1tGvJ9wzhYtdFWE28fEs5jhjxHXHKXg");
     return gapi.client.load("https://adsense.googleapis.com/$discovery/rest?version=v2")
-        .then(function() { console.log("GAPI client loaded for API"); },
-            function(err) { console.error("Error loading GAPI client for API", err); });
+        .then(function() { 
+            // console.log("GAPI client loaded for API"); 
+        },
+        function(err) { 
+            // console.error("Error loading GAPI client for API", err); 
+        });
 }
 
 function executeYtAnalytics(startDate, endDate) {
@@ -151,7 +167,7 @@ function executeYtAnalytics(startDate, endDate) {
     })
     .then(function(response) {
             // Handle the results here (response.result has the parsed body).
-            console.log("Response", response.result)
+            // console.log("Response", response.result)
             let res = response.result
             let views = []
             let subscribersGained = []
@@ -167,7 +183,8 @@ function executeYtAnalytics(startDate, endDate) {
                     plotHistogram(dates, views, subscribersGained)
             })
         },
-        function(err) { console.error("Execute error", err); 
+        function(err) { 
+            // console.error("Execute error", err); 
     });
 }
 
@@ -184,7 +201,9 @@ function executeAdSense(accName) {
         $('#unPaid').val(arr[0].amount)
         $('#lastPayment').val(arr[1].amount)
     },
-    function(err) { console.error("Execute error", err); });
+    function(err) { 
+        // console.error("Execute error", err); 
+    });
 }
 
 $("#fetchYtAnalytics").on('click',()=>{
