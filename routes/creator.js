@@ -85,7 +85,8 @@ route.post('/updRequestStatus',async (req, res)=>{
     let receiverDetails = await user.findOne(
         {username : reqDetails.promoterUsername}
     )
-    let url = "https://creator-bonanza.herokuapp.com/mail/" + req.body.status;
+    let url_util = "https://creator-bonanza.herokuapp.com/mail/"
+    let url = url_util.concat(req.body.status);
     let data = {
         from : {
             name : reqDetails.creatorUsername,
